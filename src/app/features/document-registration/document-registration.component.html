@@ -1,5 +1,17 @@
 <div class="grid">
-  <div class="col-12">col12</div>
+  <div class="col-12">
+    <p-toolbar>
+      <ng-template #start>
+          <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+          <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
+          <p-button icon="pi pi-upload" text severity="secondary" />
+      </ng-template>
+
+      <ng-template #end>
+          <p-button label="Save"></p-button>
+      </ng-template>
+  </p-toolbar>
+  </div>
   <div class="col-12">col12</div>
   <div class="col-6">col12</div>
   <div class="col-6">col12</div>
