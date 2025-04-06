@@ -1,4 +1,4 @@
-import { Correspondent, DeliveryMethod } from "../enums";
+import { Correspondent, DeliveryMethod } from '../enums';
 
 export interface IncomingDocument {
   regNumber: string;

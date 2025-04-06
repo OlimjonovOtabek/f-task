@@ -1,22 +1,29 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { Calendar } from 'primeng/calendar';
 import { Dialog } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { Textarea } from 'primeng/inputtextarea';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Correspondent, DeliveryMethod } from '../../../enums';
+import { DataOption } from '../../../models/data-option';
+import { EnumService } from '../../../services/enum.service';
 
 @Component({
   selector: 'app-document-registration-form',
-  imports: [Dialog, Button, InputTextModule, Calendar],
+  imports: [Dialog, Button, InputTextModule, Calendar, DropdownModule, Textarea , ToggleSwitchModule, ReactiveFormsModule],
   templateUrl: './document-registration-form.component.html',
-  styleUrl: './document-registration-form.component.scss',
+  styleUrls: ['./document-registration-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentRegistrationFormComponent {
   visible = input(false);
+  correspondents: DataOption<Correspondent>[] = this.enumService.getCorrespondents();
+  deliveryMethods: DataOption<DeliveryMethod>[] = this.enumService.getDeliveryMethods();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private enumService: EnumService) {}
 
   formGroup = this.fb.nonNullable.group({
     access: this.fb.control<boolean>(false),

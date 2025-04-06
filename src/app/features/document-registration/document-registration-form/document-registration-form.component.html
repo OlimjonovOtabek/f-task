@@ -9,26 +9,102 @@
       <span class="font-bold whitespace-nowrap">Amy Elsner</span>
     </div>
   </ng-template>
-  <div class="formgrid grid">
+  <div class="formgrid grid" [formGroup]="formGroup">
     <div class="field col-6">
       <label for="regNumber">Регистрационный номер </label>
-      <input id="regNumber" type="text" pInputText class="w-full" />
+      <input
+        id="regNumber"
+        formControlName="regNumber"
+        type="text"
+        pInputText
+        class="w-full"
+      />
+    </div>
+    <div class="col-6">
+      <label for="regDate">Дата рег </label>
+      <p-calendar
+        id="regDate"
+        formControlName="regDate"
+        class="w-full"
+        [showIcon]="true"
+      ></p-calendar>
     </div>
     <div class="field col-6">
-      <label for="regNumber">Регистрационный номер </label>
-      <p-calendar class="w-full" appendTo="body"></p-calendar>
+      <label for="outgoingNumber">№ исх. док-та </label>
+      <input
+        id="outgoingNumber"
+        formControlName="outgoingNumber"
+        type="text"
+        pInputText
+        class="w-full"
+      />
     </div>
     <div class="field col-6">
-      <label for="regNumber">Регистрационный номер </label>
-      <input id="regNumber" type="text" pInputText class="w-full" />
+      <label for="outgoingDate">Дата исх. док-та </label>
+      <p-calendar
+        id="outgoingDate"
+        class="w-full"
+        formControlName="outgoingDate"
+        [showIcon]="true"
+      ></p-calendar>
     </div>
     <div class="field col-6">
-      <label for="regNumber">Регистрационный номер </label>
-      <input id="regNumber" type="text" pInputText class="w-full" />
+      <label for="deliveryMethod">Способ доставки</label>
+      <p-dropdown
+        id="deliveryMethod"
+        [options]="deliveryMethods"
+        placeholder="Select a Delivery Method"
+        [showClear]="true"
+      ></p-dropdown>
     </div>
-  </div>
+    <div class="field col-6">
+      <label for="correspondent">Корреспондент</label>
+      <p-dropdown
+        id="correspondent"
+        [options]="correspondents"
+        placeholder="Select a correspondent"
+        [showClear]="true"
+      ></p-dropdown>
+    </div>
+    <div class="field col-12">
+      <label for="subject">Тема </label>
+      <textarea
+        id="subject"
+        pInputTextarea
+        class="w-full"
+        [autoResize]="true"
+        maxlength="100"
+        rows="2"
+        cols="30"
+      ></textarea>
+    </div>
+    <div class="field col-12">
+      <label for="additionalInfo">Описание </label>
+      <textarea
+        id="additionalInfo"
+        pInputTextarea
+        class="w-full"
+        [autoResize]="true"
+        maxlength="1000"
+        rows="3"
+        cols="30"
+      ></textarea>
+    </div>
+    <div class="field col-6">
+      <label for="regDate">Срок исполнения </label>
+      <p-calendar id="regDate" class="w-full" [showIcon]="true"></p-calendar>
+    </div>
+    <div class="field col-3 flex flex-column justify-content-between">
+      <label>Доступ </label>
+      <p-toggle-switch></p-toggle-switch>
+    </div>
+    <div class="field col-3 flex flex-column justify-content-between">
+      <label for="regDate">Контроль </label>
+      <p-toggle-switch></p-toggle-switch>
+    </div>
 
-  <ng-template #footer>
-    <p-button></p-button>
-  </ng-template>
+    <ng-template #footer>
+      <p-button></p-button>
+    </ng-template>
+  </div>
 </p-dialog>

@@ -5,9 +5,9 @@ export const routes: Routes = [
     path: '',
     pathMatch: 'full',
     loadComponent() {
-        return import('./features/document-registration/document-registration.component').then(
-          (m) => m.DocumentRegistrationComponent
-        );
+      return import(
+        './features/document-registration/document-registration.component'
+      ).then((m) => m.DocumentRegistrationComponent);
     },
-  }
+  },
 ];
