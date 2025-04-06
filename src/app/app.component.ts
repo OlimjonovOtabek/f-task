@@ -6,9 +6,8 @@ import { ButtonModule } from 'primeng/button';
   selector: 'app-root',
   imports: [RouterOutlet, ButtonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'f-task';
-
 }

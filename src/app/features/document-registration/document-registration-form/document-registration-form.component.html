@@ -1,0 +1,34 @@
+<p-dialog
+  header="Edit Profile"
+  [modal]="true"
+  [visible]="visible()"
+  [style]="{ width: '50rem' }"
+>
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="font-bold whitespace-nowrap">Amy Elsner</span>
+    </div>
+  </ng-template>
+  <div class="formgrid grid">
+    <div class="field col-6">
+      <label for="regNumber">Регистрационный номер </label>
+      <input id="regNumber" type="text" pInputText class="w-full" />
+    </div>
+    <div class="field col-6">
+      <label for="regNumber">Регистрационный номер </label>
+      <p-calendar class="w-full" appendTo="body"></p-calendar>
+    </div>
+    <div class="field col-6">
+      <label for="regNumber">Регистрационный номер </label>
+      <input id="regNumber" type="text" pInputText class="w-full" />
+    </div>
+    <div class="field col-6">
+      <label for="regNumber">Регистрационный номер </label>
+      <input id="regNumber" type="text" pInputText class="w-full" />
+    </div>
+  </div>
+
+  <ng-template #footer>
+    <p-button></p-button>
+  </ng-template>
+</p-dialog>

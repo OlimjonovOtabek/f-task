@@ -15,8 +15,11 @@ export const appConfig: ApplicationConfig = {
         preset: DefaultPreset,
         options: {
           ripple: true,
-          darkModeSelector: false
-      }
+          darkModeSelector: false,
+        },
+      },
+      overlayOptions: {
+        appendTo: 'body',
       },
     }),
   ],

@@ -2,12 +2,24 @@
   <div class="col-12">
     <p-toolbar>
       <ng-template #start>
-          <p-button label="ADD_NEW"></p-button>
+        <p-button
+          label="ADD_NEW"
+          icon="pi pi-plus"
+          styleClass="p-button-success"
+          (onClick)="onAddButtonClick()"
+        ></p-button>
       </ng-template>
-  </p-toolbar>
+    </p-toolbar>
   </div>
   <div class="col-12">
-    <p-table styleClass="p-datatable-gridlines" [value]="documents" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]">
+    <p-table
+      showGridlines
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [value]="documents"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 20]"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>Document Name</th>
@@ -23,17 +35,22 @@
       <ng-template pTemplate="body" let-document let-columns="columns">
         <tr>
           <td>{{ document.regNumber }}</td>
-          <td>{{ document.regDate | date:'mediumDate' }}</td>
+          <td>{{ document.regDate | date : "mediumDate" }}</td>
           <td>{{ document.deliveryMethod }}</td>
           <td>{{ document.correspondent }}</td>
           <td>{{ document.topic }}</td>
           <td>{{ document.access }}</td>
           <td>{{ document.control }}</td>
-          <td class=" flex gap-2">
+          <td class="flex gap-2">
             <p-button icon="pi pi-pencil"></p-button>
             <p-button icon="pi pi-trash"></p-button>
           </td>
         </tr>
       </ng-template>
     </p-table>
+  </div>
 </div>
+
+<app-document-registration-form
+  [visible]="true"
+></app-document-registration-form>
