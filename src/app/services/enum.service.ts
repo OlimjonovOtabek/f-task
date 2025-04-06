@@ -8,17 +8,17 @@ import { DataOption } from '../models/data-option';
 export class EnumService {
   getCorrespondents(): DataOption<Correspondent>[] {
     return [
-      { label: 'CB', value: Correspondent.CB },
-      { label: 'GNI', value: Correspondent.GNI },
-      { label: 'HOA', value: Correspondent.HOA },
+      { text: 'CB', value: Correspondent.CB },
+      { text: 'GNI', value: Correspondent.GNI },
+      { text: 'HOA', value: Correspondent.HOA },
     ];
   }
 
   getDeliveryMethods(): DataOption<DeliveryMethod>[] {
     return [
-      { label: 'Email', value: DeliveryMethod.Email },
-      { label: 'Courier', value: DeliveryMethod.Courier },
-      { label: 'PhoneCall', value: DeliveryMethod.PhoneCall },
+      { text: 'Email', value: DeliveryMethod.Email },
+      { text: 'Courier', value: DeliveryMethod.Courier },
+      { text: 'PhoneCall', value: DeliveryMethod.PhoneCall },
     ];
   }
 }

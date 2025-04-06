@@ -1,15 +1,17 @@
 <p-dialog
-  header="Edit Profile"
   [modal]="true"
   [visible]="visible()"
-  [style]="{ width: '50rem' }"
->
+  [style]="{ width: '50rem' }">
   <ng-template #header>
     <div class="inline-flex items-center justify-center gap-2">
-      <span class="font-bold whitespace-nowrap">Amy Elsner</span>
+      <span class="font-bold whitespace-nowrap"
+        >Детали входящего документа</span
+      >
     </div>
   </ng-template>
-  <div class="formgrid grid" [formGroup]="formGroup">
+  <div
+    class="formgrid grid"
+    [formGroup]="formGroup">
     <div class="field col-6">
       <label for="regNumber">Регистрационный номер </label>
       <input
@@ -17,94 +19,115 @@
         formControlName="regNumber"
         type="text"
         pInputText
-        class="w-full"
-      />
+        class="w-full" />
     </div>
-    <div class="col-6">
+    <div class="field col-6">
       <label for="regDate">Дата рег </label>
-      <p-calendar
+      <p-datePicker
         id="regDate"
-        formControlName="regDate"
         class="w-full"
         [showIcon]="true"
-      ></p-calendar>
+        formControlName="regDate"></p-datePicker>
     </div>
     <div class="field col-6">
       <label for="outgoingNumber">№ исх. док-та </label>
       <input
-        id="outgoingNumber"
-        formControlName="outgoingNumber"
-        type="text"
         pInputText
+        id="outgoingNumber"
+        type="text"
         class="w-full"
-      />
+        formControlName="outgoingNumber" />
     </div>
     <div class="field col-6">
       <label for="outgoingDate">Дата исх. док-та </label>
-      <p-calendar
+      <p-datePicker
         id="outgoingDate"
         class="w-full"
         formControlName="outgoingDate"
-        [showIcon]="true"
-      ></p-calendar>
+        [showIcon]="true"></p-datePicker>
     </div>
     <div class="field col-6">
       <label for="deliveryMethod">Способ доставки</label>
-      <p-dropdown
+      <p-select
         id="deliveryMethod"
         [options]="deliveryMethods"
-        placeholder="Select a Delivery Method"
         [showClear]="true"
-      ></p-dropdown>
+        optionLabel="text"
+        optionValue="value"
+        formControlName="deliveryMethod"></p-select>
     </div>
     <div class="field col-6">
       <label for="correspondent">Корреспондент</label>
-      <p-dropdown
+      <p-select
         id="correspondent"
         [options]="correspondents"
-        placeholder="Select a correspondent"
         [showClear]="true"
-      ></p-dropdown>
+        optionLabel="text"
+        optionValue="value"
+        formControlName="correspondent"></p-select>
     </div>
     <div class="field col-12">
       <label for="subject">Тема </label>
       <textarea
         id="subject"
-        pInputTextarea
+        pTextarea
         class="w-full"
         [autoResize]="true"
         maxlength="100"
         rows="2"
         cols="30"
-      ></textarea>
+        formControlName="topic"></textarea>
     </div>
     <div class="field col-12">
       <label for="additionalInfo">Описание </label>
       <textarea
         id="additionalInfo"
-        pInputTextarea
+        pTextarea
         class="w-full"
         [autoResize]="true"
         maxlength="1000"
         rows="3"
         cols="30"
-      ></textarea>
+        formControlName="description"></textarea>
     </div>
     <div class="field col-6">
-      <label for="regDate">Срок исполнения </label>
-      <p-calendar id="regDate" class="w-full" [showIcon]="true"></p-calendar>
+      <label for="executionDeadline">Срок исполнения </label>
+      <p-datePicker
+        id="executionDeadline"
+        class="w-full"
+        [showIcon]="true"
+        formControlName="executionDeadline"></p-datePicker>
     </div>
     <div class="field col-3 flex flex-column justify-content-between">
       <label>Доступ </label>
-      <p-toggle-switch></p-toggle-switch>
+      <p-toggle-switch formControlName="access"></p-toggle-switch>
     </div>
     <div class="field col-3 flex flex-column justify-content-between">
-      <label for="regDate">Контроль </label>
-      <p-toggle-switch></p-toggle-switch>
+      <label for="control">Контроль </label>
+      <p-toggle-switch formControlName="control"></p-toggle-switch>
     </div>
-
-    <ng-template #footer>
-      <p-button></p-button>
-    </ng-template>
+    <div class="col-6">
+      <p-fileUpload
+        [auto]="true"
+        [maxFileSize]="1048576"
+        accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        [invalidFileSizeMessageDetail]="invalidFileSizeMessage"
+        [invalidFileTypeMessageDetail]="invalidFileTypeMessage"
+        (onSelect)="onBasicUploadAuto($event)"
+        [mode]="'basic'"></p-fileUpload>
+    </div>
   </div>
+  <ng-template #footer>
+    <p-button
+      severity="secondary"
+      [text]="true"
+      [outlined]="true"
+      label="Закрыть "
+      (click)="onClose()"></p-button>
+    <p-button
+      label="Сохранить "
+      severity="secondary"
+      [outlined]="true"
+      (click)="onSave()"></p-button>
+  </ng-template>
 </p-dialog>

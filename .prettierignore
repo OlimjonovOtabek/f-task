@@ -1,6 +1,6 @@
 # Ignore artifacts:
-**/.hg
 **/node_modules
 
 **/.git
 **/**.json
+**/**.md

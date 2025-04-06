@@ -1,4 +1,4 @@
 export interface DataOption<T> {
-  label: string;
+  text: string;
   value: T;
 }
