@@ -6,8 +6,7 @@
           label="ADD_NEW"
           icon="pi pi-plus"
           styleClass="p-button-success"
-          (onClick)="onAddButtonClick()"
-        ></p-button>
+          (onClick)="onAddButtonClick()"></p-button>
       </ng-template>
     </p-toolbar>
   </div>
@@ -15,11 +14,10 @@
     <p-table
       showGridlines
       [tableStyle]="{ 'min-width': '50rem' }"
-      [value]="documents"
+      [value]="(documents | async) ?? []"
       [paginator]="true"
       [rows]="10"
-      [rowsPerPageOptions]="[5, 10, 20]"
-    >
+      [rowsPerPageOptions]="[5, 10, 20]">
       <ng-template pTemplate="header">
         <tr>
           <th>Document Name</th>
@@ -32,17 +30,22 @@
           <th>Actions</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-document let-columns="columns">
+      <ng-template
+        pTemplate="body"
+        let-document
+        let-columns="columns">
         <tr>
           <td>{{ document.regNumber }}</td>
-          <td>{{ document.regDate | date: "mediumDate" }}</td>
+          <td>{{ document.regDate | date : 'mediumDate' }}</td>
           <td>{{ document.deliveryMethod }}</td>
           <td>{{ document.correspondent }}</td>
           <td>{{ document.topic }}</td>
           <td>{{ document.access }}</td>
           <td>{{ document.control }}</td>
           <td class="flex gap-2">
-            <p-button icon="pi pi-pencil"></p-button>
+            <p-button
+              icon="pi pi-pencil"
+              (onClick)="onEditButtonClick(document)"></p-button>
             <p-button icon="pi pi-trash"></p-button>
           </td>
         </tr>
@@ -50,7 +53,10 @@
     </p-table>
   </div>
 </div>
-
+@if (editFormVisible) {
 <app-document-registration-form
-  [visible]="true"
-></app-document-registration-form>
+  [(visible)]="editFormVisible"
+  [editItem]="editItem"
+  (closed)="editFormVisible = false"></app-document-registration-form>
+<p-toast></p-toast>
+}

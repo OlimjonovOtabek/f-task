@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   input,
+  model,
   OnInit,
+  output,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -21,7 +23,10 @@ import { TextareaModule } from 'primeng/textarea';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Correspondent, DeliveryMethod } from '../../../enums';
 import { DataOption } from '../../../models/data-option';
+import { IncomingDocument } from '../../../models/incoming-document';
+import { NotificationService } from '../../../services';
 import { EnumService } from '../../../services/enum.service';
+import { RegistrationService } from '../../../services/registration.service';
 
 @Component({
   selector: 'app-document-registration-form',
@@ -42,16 +47,24 @@ import { EnumService } from '../../../services/enum.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentRegistrationFormComponent implements OnInit {
-  visible = input(false);
+  visible = model(false);
+  editItem = input<IncomingDocument>();
+  closed = output<void>();
+
   protected correspondents: DataOption<Correspondent>[] =
     this.enumService.getCorrespondents();
   protected deliveryMethods: DataOption<DeliveryMethod>[] =
     this.enumService.getDeliveryMethods();
 
   invalidFileSizeMessage: string = 'Размер файла превышает 1Мб.';
-  invalidFileTypeMessage: string = 'Недопустимый формат и размер файла.';
+  invalidFileTypeMessage: string = 'Недопустимый формат и размер файла.';
 
-  constructor(private fb: FormBuilder, private enumService: EnumService) {}
+  constructor(
+    private fb: FormBuilder,
+    private enumService: EnumService,
+    private msgService: NotificationService,
+    private registrationService: RegistrationService
+  ) {}
 
   formGroup = this.fb.nonNullable.group({
     access: this.fb.control<boolean>(false),
@@ -79,15 +92,15 @@ export class DocumentRegistrationFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.formGroup.patchValue({ ...this.editItem() });
     this.formGroup.controls.executionDeadline.addValidators(
       executionDeadlineValidator(this.formGroup.controls.regDate)
     );
-
     this.formGroup.controls.regDate.disable();
   }
 
   onClose() {
-    this.visible;
+    this.closed.emit();
   }
 
   onBasicUploadAuto(event: FileSelectEvent): void {
@@ -113,7 +126,6 @@ export class DocumentRegistrationFormComponent implements OnInit {
         return;
       }
 
-      // Set the file control value in the form
       this.formGroup.controls.file.setValue(selectedFile);
     }
   }
@@ -129,6 +141,15 @@ export class DocumentRegistrationFormComponent implements OnInit {
       }
       return;
     }
+
+    const document = {
+      ...this.formGroup.value,
+    } as IncomingDocument;
+
+    this.registrationService.addDocument(document);
+    this.msgService.showCreateSuccess();
+
+    this.onClose();
   }
 }
 

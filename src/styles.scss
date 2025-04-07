@@ -1,21 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeicons/primeicons.css";
-@import "primeflex/primeflex.css";
+@import 'primeicons/primeicons.css';
+@import 'primeflex/primeflex.css';
 
 /* You can add global styles to this file, and also import other style files */
 html {
   font-size: 14px;
-  font-family:
-    Inter var,
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
+  font-family: Inter var, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     Segoe UI Symbol;
 }
 
@@ -34,10 +25,6 @@ body {
   width: 100%;
 }
 
-.p-select {
-  width: 100%;
-}
-
 .p-fileupload-basic {
-  justify-content:flex-start !important;
+  justify-content: flex-start !important;
 }

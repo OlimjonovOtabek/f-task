@@ -1,6 +1,8 @@
 <p-dialog
   [modal]="true"
-  [visible]="visible()"
+  [draggable]="false"
+  [(visible)]="visible"
+  (onHide)="onClose()"
   [style]="{ width: '50rem' }">
   <ng-template #header>
     <div class="inline-flex items-center justify-center gap-2">
@@ -50,6 +52,7 @@
       <label for="deliveryMethod">Способ доставки</label>
       <p-select
         id="deliveryMethod"
+        class="w-full"
         [options]="deliveryMethods"
         [showClear]="true"
         optionLabel="text"
@@ -60,6 +63,7 @@
       <label for="correspondent">Корреспондент</label>
       <p-select
         id="correspondent"
+        class="w-full"
         [options]="correspondents"
         [showClear]="true"
         optionLabel="text"
