@@ -1,0 +1,137 @@
+<p-dialog
+  [modal]="true"
+  [draggable]="false"
+  [(visible)]="visible"
+  (onHide)="onClose()"
+  [style]="{ width: '50rem' }">
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="font-bold whitespace-nowrap"
+        >Детали входящего документа</span
+      >
+    </div>
+  </ng-template>
+  <div
+    class="formgrid grid"
+    [formGroup]="formGroup">
+    <div class="field col-6">
+      <label for="regNumber">Регистрационный номер </label>
+      <input
+        id="regNumber"
+        formControlName="regNumber"
+        type="text"
+        pInputText
+        class="w-full" />
+    </div>
+    <div class="field col-6">
+      <label for="regDate">Дата рег </label>
+      <p-datePicker
+        id="regDate"
+        class="w-full"
+        [showIcon]="true"
+        formControlName="regDate"></p-datePicker>
+    </div>
+    <div class="field col-6">
+      <label for="outgoingNumber">№ исх. док-та </label>
+      <input
+        pInputText
+        id="outgoingNumber"
+        type="text"
+        class="w-full"
+        formControlName="outgoingNumber" />
+    </div>
+    <div class="field col-6">
+      <label for="outgoingDate">Дата исх. док-та </label>
+      <p-datePicker
+        id="outgoingDate"
+        class="w-full"
+        formControlName="outgoingDate"
+        [showIcon]="true"></p-datePicker>
+    </div>
+    <div class="field col-6">
+      <label for="deliveryMethod">Способ доставки</label>
+      <p-select
+        id="deliveryMethod"
+        class="w-full"
+        [options]="deliveryMethods"
+        [showClear]="true"
+        optionLabel="text"
+        optionValue="value"
+        formControlName="deliveryMethod"></p-select>
+    </div>
+    <div class="field col-6">
+      <label for="correspondent">Корреспондент</label>
+      <p-select
+        id="correspondent"
+        class="w-full"
+        [options]="correspondents"
+        [showClear]="true"
+        optionLabel="text"
+        optionValue="value"
+        formControlName="correspondent"></p-select>
+    </div>
+    <div class="field col-12">
+      <label for="subject">Тема </label>
+      <textarea
+        id="subject"
+        pTextarea
+        class="w-full"
+        [autoResize]="true"
+        maxlength="100"
+        rows="2"
+        cols="30"
+        formControlName="topic"></textarea>
+    </div>
+    <div class="field col-12">
+      <label for="additionalInfo">Описание </label>
+      <textarea
+        id="additionalInfo"
+        pTextarea
+        class="w-full"
+        [autoResize]="true"
+        maxlength="1000"
+        rows="3"
+        cols="30"
+        formControlName="description"></textarea>
+    </div>
+    <div class="field col-6">
+      <label for="executionDeadline">Срок исполнения </label>
+      <p-datePicker
+        id="executionDeadline"
+        class="w-full"
+        [showIcon]="true"
+        formControlName="executionDeadline"></p-datePicker>
+    </div>
+    <div class="field col-3 flex flex-column justify-content-between">
+      <label>Доступ </label>
+      <p-toggle-switch formControlName="access"></p-toggle-switch>
+    </div>
+    <div class="field col-3 flex flex-column justify-content-between">
+      <label for="control">Контроль </label>
+      <p-toggle-switch formControlName="control"></p-toggle-switch>
+    </div>
+    <div class="col-6">
+      <p-fileUpload
+        [auto]="true"
+        [maxFileSize]="1048576"
+        accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        [invalidFileSizeMessageDetail]="invalidFileSizeMessage"
+        [invalidFileTypeMessageDetail]="invalidFileTypeMessage"
+        (onSelect)="onBasicUploadAuto($event)"
+        [mode]="'basic'"></p-fileUpload>
+    </div>
+  </div>
+  <ng-template #footer>
+    <p-button
+      severity="secondary"
+      [text]="true"
+      [outlined]="true"
+      label="Закрыть "
+      (click)="onClose()"></p-button>
+    <p-button
+      label="Сохранить "
+      severity="secondary"
+      [outlined]="true"
+      (click)="onSave()"></p-button>
+  </ng-template>
+</p-dialog>
