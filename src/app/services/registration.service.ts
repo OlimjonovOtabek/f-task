@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { IncomingDocument } from '../models/incoming-document';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RegistrationService {
-  private documents: BehaviorSubject<IncomingDocument[]>;
-  public registeredDocuments$: Observable<IncomingDocument[]>;
-
-  constructor() {
-    this.documents = new BehaviorSubject<IncomingDocument[]>([]);
-    this.registeredDocuments$ = this.documents.asObservable();
-  }
+export class RegistrationService extends NotificationService {
+  private documents = new BehaviorSubject<IncomingDocument[]>([]);
+  public registeredDocuments$ = this.documents.asObservable();
 
   public addDocument(document: IncomingDocument) {
     this.documents.next([...this.documents.getValue(), document]);

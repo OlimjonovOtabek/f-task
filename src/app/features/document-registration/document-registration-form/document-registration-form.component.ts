@@ -41,7 +41,7 @@ import { RegistrationService } from '../../../services/registration.service';
     ToggleSwitchModule,
     ReactiveFormsModule,
   ],
-  providers: [FileUploadModule],
+  providers: [EnumService],
   templateUrl: './document-registration-form.component.html',
   styleUrls: ['./document-registration-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -104,6 +104,7 @@ export class DocumentRegistrationFormComponent implements OnInit {
   }
 
   onBasicUploadAuto(event: FileSelectEvent): void {
+    debugger;
     const selectedFile = event.files[0];
 
     if (selectedFile) {
@@ -142,14 +143,32 @@ export class DocumentRegistrationFormComponent implements OnInit {
       return;
     }
 
+    if (!this.editItem()) {
+      this.saveAction();
+    } else {
+      this.updateAction();
+    }
+
+    this.onClose();
+  }
+
+  private saveAction() {
     const document = {
       ...this.formGroup.value,
     } as IncomingDocument;
 
+    debugger;
     this.registrationService.addDocument(document);
     this.msgService.showCreateSuccess();
+  }
 
-    this.onClose();
+  private updateAction() {
+    const document = {
+      ...this.formGroup.value,
+    } as IncomingDocument;
+
+    this.registrationService.updateDocument(document);
+    this.msgService.showUpdateSuccess();
   }
 }
 

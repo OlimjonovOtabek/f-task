@@ -3,9 +3,8 @@
     <p-toolbar>
       <ng-template #start>
         <p-button
-          label="ADD_NEW"
-          icon="pi pi-plus"
-          styleClass="p-button-success"
+          label="Добавить"
+          [outlined]="true"
           (onClick)="onAddButtonClick()"></p-button>
       </ng-template>
     </p-toolbar>
@@ -14,20 +13,21 @@
     <p-table
       showGridlines
       [tableStyle]="{ 'min-width': '50rem' }"
-      [value]="(documents | async) ?? []"
+      [value]="(documentService.registeredDocuments$ | async) ?? []"
       [paginator]="true"
       [rows]="10"
       [rowsPerPageOptions]="[5, 10, 20]">
       <ng-template pTemplate="header">
         <tr>
-          <th>Document Name</th>
-          <th>Created Date</th>
-          <th>Delivery Type</th>
-          <th>Correspondent</th>
-          <th>Topic</th>
-          <th>Access</th>
-          <th>Control</th>
-          <th>Actions</th>
+          <th>Регистрационный номер</th>
+          <th>Дата рег</th>
+          <th>Способ доставки</th>
+          <th>Корреспондент</th>
+          <th>Тема</th>
+          <th>Доступ</th>
+          <th>Контроль</th>
+          <th>Документ</th>
+          <th>Действия</th>
         </tr>
       </ng-template>
       <ng-template
@@ -40,13 +40,27 @@
           <td>{{ document.deliveryMethod }}</td>
           <td>{{ document.correspondent }}</td>
           <td>{{ document.topic }}</td>
-          <td>{{ document.access }}</td>
-          <td>{{ document.control }}</td>
+          <td>{{ document.access | yesNo }}</td>
+          <td>{{ document.control | yesNo }}</td>
+          <td>
+            @if(document.file){
+            <p-button
+              fluid="true"
+              icon="pi pi-download"
+              (onClick)="saveButton(document.file)" />
+            } @else { Документа нет }
+          </td>
           <td class="flex gap-2">
             <p-button
+              pTooltip="Изменить"
               icon="pi pi-pencil"
-              (onClick)="onEditButtonClick(document)"></p-button>
-            <p-button icon="pi pi-trash"></p-button>
+              (onClick)="onEditButtonClick(document)"
+              severity="warn"></p-button>
+            <p-button
+              pTooltip="Удалить"
+              (onClick)="onDelete(document)"
+              icon="pi pi-trash"
+              severity="danger"></p-button>
           </td>
         </tr>
       </ng-template>
@@ -58,5 +72,4 @@
   [(visible)]="editFormVisible"
   [editItem]="editItem"
   (closed)="editFormVisible = false"></app-document-registration-form>
-<p-toast></p-toast>
 }

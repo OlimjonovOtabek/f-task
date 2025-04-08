@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 @Injectable({
   providedIn: 'root',
 })
-export class NotificationService {
+export abstract class NotificationService {
   constructor(private messageService: MessageService) {}
 
   public showLoadError(
@@ -82,7 +82,6 @@ export class NotificationService {
   ) {
     this.messageService.add({
       key: key,
-
       severity: 'success',
       summary: 'Успешно',
       detail: message ?? 'Запись успешно создана',
