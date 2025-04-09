@@ -71,5 +71,7 @@
 <app-document-registration-form
   [(visible)]="editFormVisible"
   [editItem]="editItem"
-  (closed)="editFormVisible = false"></app-document-registration-form>
+  (closed)="
+    editFormVisible = false; editItem = undefined
+  "></app-document-registration-form>
 }

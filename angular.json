@@ -19,7 +19,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist",
+             "baseHref": "/f-task/",
+            "outputPath": "dist/f-task",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -28,7 +29,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public",
+                "input": "public"
               }
             ],
             "styles": [
@@ -63,8 +64,7 @@
             "development": {
               "optimization": true,
               "extractLicenses": false,
-              "sourceMap": false,
-              "aot": true
+              "sourceMap": false
             }
           },
           "defaultConfiguration": "production"
@@ -99,6 +99,9 @@
             "styles": ["src/styles.scss"],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
